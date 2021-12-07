@@ -1,0 +1,125 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  endCursor: String
+  startCursor: String
+}
+
+type Owner {
+  id: ID!
+  displayName: String!
+  email: String!
+}
+
+type Cat {
+  id: ID!
+  name: String!
+  age: Int!
+  breed: String!
+  owner: Owner
+}
+
+type Provider {
+  id: ID!
+  providerId: String!
+  name: String!
+}
+
+type User {
+  id: ID!
+  userId: ID!
+  displayName: String!
+  email: String!
+  picture: String
+  provider: String
+  providers: [Provider!]
+  roles: [String!]!
+  facebook: String
+  github: String
+  google: String
+  linkedin: String
+  live: String
+  microsoft: String
+  twitter: String
+  windowslive: String
+}
+
+type Query {
+  hello: String!
+  author(id: Int!): Cat!
+  cats(filterBy: [FilterByCatFields!], orderBy: [OrderByCatFields!]): [Cat!]!
+  users(filterBy: [FilterByString!], orderBy: [OrderByString!], first: Int!, offset: Int!, cursor: String): PaginatedResponseClass!
+  whoAmI: User!
+}
+
+input FilterByCatFields {
+  field: CatFields!
+  operator: Operator!
+  value: String!
+}
+
+"""The list of Cat Fields"""
+enum CatFields {
+  id
+  name
+  age
+  breed
+}
+
+"""Possible filter operators"""
+enum Operator {
+  LT
+  LE
+  GT
+  GE
+  NE
+  EQ
+  IN
+  NIN
+  StartsWith
+  EndsWith
+  Contains
+}
+
+input OrderByCatFields {
+  field: CatFields!
+  direction: Direction!
+}
+
+"""The orderBy directions"""
+enum Direction {
+  ASC
+  DESC
+}
+
+type PaginatedResponseClass {
+  nodes: [User!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input FilterByString {
+  field: String!
+  operator: Operator!
+  value: String!
+}
+
+input OrderByString {
+  field: String!
+  direction: Direction!
+}
+
+type Mutation {
+  createCat(input: CatInput!): Cat!
+}
+
+input CatInput {
+  name: String!
+  age: Int!
+  breed: String!
+  ownerId: String!
+}
